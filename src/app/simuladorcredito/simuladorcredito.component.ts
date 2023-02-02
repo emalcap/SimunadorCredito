@@ -1,7 +1,7 @@
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-//import { Workbook } from 'exceljs';
+import { Workbook } from 'exceljs';
 import { CalulartasaService } from '../services/credito/calulartasa.service';
 import { FechasiguienteService } from '../services/credito/fechasiguiente.service';
 import { ReagustrarcuotafijaService } from '../services/credito/reagustrarcuotafija.service';
@@ -23,7 +23,7 @@ export class SimuladorcreditoComponent implements OnInit {
   public sumaInteres:any= Number;
   public  valorTeaTem:any = Number;
 
-  //private _workBook! : Workbook;
+  private _workBook! : Workbook;
 
 
   constructor(
@@ -153,7 +153,7 @@ public datosrequeridos(credito: any){
 
 public exportarExcel(){
 alert(JSON.stringify(this.lstDetalleCredito))
-/*
+
  this._workBook  = new Workbook();
 
  this._workBook.creator="Digidev";
@@ -165,7 +165,7 @@ alert(JSON.stringify(this.lstDetalleCredito))
   fs.saveAs(blob,"Ejmplo.xlsx");
 
  })
-*/
+
 this.lstDetalleCredito.forEach((dataDetalle: any) => {
   alert(JSON.stringify(dataDetalle))
 })
