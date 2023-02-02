@@ -1,0 +1,100 @@
+  <!-- Main content -->
+  <div class="content">
+    <div class="container">
+      <div class="row">        
+        <!-- /.col-md-6 -->
+        <div class="col-lg-12">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+              <h5 class="card-title m-0">Datos del Crédito</h5>
+            </div>
+            <div class="card-body">
+                <form autocomplete="off" [formGroup]="frmCredito" style="font-size: 12px; align-content: center;">
+                  
+                  <div class="row mb-3">
+                    <label for="txtMonto" class="col-sm-2 col-form-label">Monto Crédito</label>
+                    <div class="col-sm-2">
+                      <!-- Server side   bootstrap-->
+                        <input type="number" class="form-control form-control-sm text-right"   id="txtMonto"  formControlName="monto"                       
+                        placeholder="">
+                     
+                    </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="txtFecha" class="col-sm-2 col-form-label">Fecha Desembolso</label>
+                  <div class="col-sm-2">
+                      <input type="Date" class="form-control form-control-sm text-right" id="txtFecha" formControlName="fecha" placeholder="">
+                  </div>
+              </div>
+                <div class="row mb-3">
+                    <label for="txtTea" class="col-sm-2 col-form-label">Tasa Efectiva Anual %</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control form-control-sm text-right"  min="6" max="50" formControlName ="tea" (change)="mostrarTasa($event.target)" placeholder="">
+                        
+                    </div>
+                    <div class="col-sm-1" *ngIf="valorTeaTem > 0"><b> TEM = {{valorTeaTem}}</b></div> 
+                </div>
+                <div class="row mb-3">
+                  <label for="txtNroCuotas" class="col-sm-2 col-form-label">Número Cuotas</label>
+                  <div class="col-sm-2">
+                      <input type="number" class="form-control form-control-sm text-right" id="txtNroCuotas" min="1" max="99"  formControlName = "nroCuotas" placeholder="">
+                  </div>
+              </div>                  
+                
+                <br>
+                <div class="row mb-3">
+                    <div class="col-sm-2 offset-sm-2">
+                        <button class="btn btn-sm btn-primary" (click)="simularCredito()">Simulación</button>
+                    </div>
+                </div>   
+                </form>
+            </div>
+          </div>
+
+          <div class="card card-success card-outline">
+            <div class="card-header">
+              <h5 class="card-title m-0">Detalle pago de Cuotas</h5>
+            </div>
+            <div class="card-body">
+              <div style="margin-bottom: 5px;">
+                <button class="btn btn btn-success btn-sm" (click)="exportarExcel()">XLSX </button>
+                <button class="btn btn btn-success btn-sm" (click)="crearPDF()" style="margin-left: 2em;">PDF </button>
+               </div> 
+              <table id="example2"   class="table table-bordered table-hover" style="font-size: 12px; align-content: center;" >
+                <thead>        
+                  <th class="text-center">Cuota</th>
+                  <th class="text-center">fecha Pago</th>              
+                  <th class="text-center">Saldo Capital</th>
+                  <th class="text-center">Amortización</th>
+                  <th class="text-center">Interes</th>
+                  <th class="text-center">Cuota</th>
+                </thead> 
+                <tbody>
+                    <tr *ngFor="let item of lstDetalleCredito ,let i = index">            
+                    <td class="text-center">{{item.nroCuota}}</td>
+                    <td class="text-center">{{item.fechaPago | date: 'dd/MM/yyyy'}}</td>                
+                    <td class="text-right">{{item.saldoCapital | number:'.2-2'}}</td> 
+                    <td class="text-right">{{item.amortizacion | number:'.2-2'}}</td>  
+                    <td class="text-right">{{item.interes | number:'.2-2'}}</td>    
+                    <td class="text-right">{{item.cuotafija | number:'.2-2'}}</td>           
+                  
+                    </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="3">total</td>
+                    <td class="text-right">{{sumaAmortiacion | number:'.2-2'}}</td>
+                    <td class="text-right">{{sumaInteres | number:'.2-2'}}</td>
+                    <td class="text-right"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- /.col-md-6 -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->

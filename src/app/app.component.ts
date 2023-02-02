@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'simuladorcredito';
+
+  anioActual = new Date( new Date().getFullYear());
 }
